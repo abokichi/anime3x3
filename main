@@ -200,19 +200,6 @@
             font-weight: 500;
         }
 
-        .grid-coordinates {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 10px;
-            z-index: 3;
-            font-family: monospace;
-        }
-
         input[type="file"] {
             display: none;
         }
@@ -293,40 +280,31 @@
                     gridItem.className = 'grid-item';
                     gridItem.dataset.position = position;
                     
-                    // Create static image container (initially empty)
+                    // Create static image container (completely empty)
                     const staticImg = document.createElement('img');
                     staticImg.className = 'static-image';
-                    staticImg.alt = `Tile ${coordinates}`;
                     
                     // Create GIF container (hidden by default)
                     const gifImg = document.createElement('img');
                     gifImg.className = 'gif-image';
-                    gifImg.alt = `GIF ${coordinates}`;
                     
                     // Create audio element
                     const audio = document.createElement('audio');
                     audio.className = 'grid-audio';
                     
-                    // Create coordinates label (hidden until hover if you want to show it later)
-                    const coords = document.createElement('div');
-                    coords.className = 'grid-coordinates';
-                    coords.textContent = coordinates;
-                    coords.style.display = 'none'; // Hidden by default
-                    
                     // Append elements to grid item
                     gridItem.appendChild(staticImg);
                     gridItem.appendChild(gifImg);
                     gridItem.appendChild(audio);
-                    gridItem.appendChild(coords);
                     
                     // Add hover events
                     gridItem.addEventListener('mouseenter', function() {
-                        // Reset and play GIF
+                        // Reset and play GIF only if one exists
                         if (gifImg.src) {
                             gifImg.src = gifImg.src;
                         }
                         
-                        // Reset and play audio
+                        // Play audio only if exists
                         if (audio.src) {
                             const startTime = parseFloat(audio.dataset.startTime) || 0;
                             audio.currentTime = startTime;
